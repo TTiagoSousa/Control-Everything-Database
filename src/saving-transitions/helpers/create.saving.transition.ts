@@ -57,6 +57,8 @@ export async function createSavingTransition(
     throw new BadGatewayException('Ammount must contains only numbers')
   }
 
+  transitionAmount -= feesPaid;
+
   const savingTransition = await SavingTransitionRepository.create({
     transitionType, 
     date,
