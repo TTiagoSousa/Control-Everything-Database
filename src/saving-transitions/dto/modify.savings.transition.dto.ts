@@ -33,4 +33,8 @@ export class modifySavingTransition_dto {
   @ApiProperty()
   @IsOptional() 
   description: string;
+
+  @ApiProperty()
+  @IsNotEmpty() 
+  feesPaid: number;
 }
