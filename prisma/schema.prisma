@@ -119,7 +119,7 @@ model SavingTransition {
   createdById           String
   currency              Currency        @relation(fields: [currencyTypeID], references: [id])
   description           String?
-  feesPaid              Float
+  feesPaid              Float?
 }
 
 enum TransitionType {

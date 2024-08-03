@@ -16,7 +16,7 @@ export async function createSavingTransition(
   const CurrencyRepository = new PrismaCurrencyRepository();
   const PlatformRepository = new PrismaPlatformRepository();
 
-  const { transitionType, date, platformID, amount, currencyTypeID, description } = dto;
+  const { transitionType, date, platformID, amount, currencyTypeID, description, feesPaid } = dto;
 
   let transitionAmount = amount;
 
@@ -64,7 +64,8 @@ export async function createSavingTransition(
     amount: transitionAmount,
     currencyTypeID,
     createdById: userId,
-    description: description ,
+    description: description,
+    feesPaid,
     isActive: true,   
   })
 
