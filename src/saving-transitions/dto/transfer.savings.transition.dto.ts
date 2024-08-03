@@ -32,4 +32,7 @@ export class transferSavingTransition_dto {
   @IsOptional() 
   description: string;
 
+  @ApiProperty()
+  @IsNotEmpty() 
+  feesPaid: number;
 }
