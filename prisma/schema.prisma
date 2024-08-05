@@ -37,6 +37,7 @@ model Employee {
   countryId         String                  
   country           Countries               @relation(fields: [countryId], references: [id])          
   gender            Gender                  @default(unknown)
+  articles          Article[]
 }
 
 enum Gender {
@@ -127,4 +128,22 @@ enum TransitionType {
   DEPOSIT
   WITHDRAWAL
   TRANSFER
+}
+
+model Article {
+  id          String    @id @default(uuid())
+  title       String
+  imageUrl    String?
+  content     String
+  difficulty  Articledifficulty
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  author      Employee      @relation(fields: [authorId], references: [id])
+  authorId    String
+}
+
+enum Articledifficulty {
+  Intermediate
+  Beginner
+  Advanced
 }
