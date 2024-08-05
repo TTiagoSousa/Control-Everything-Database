@@ -14,19 +14,23 @@ export class transferSavingTransition_dto {
 
   @ApiProperty()
   @IsNotEmpty()
+  fromPlatformID: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  toPlatformID: string;
+
+  @ApiProperty()
+  @IsNotEmpty() 
+  amount: number;
+
+  @ApiProperty()
+  @IsNotEmpty()
   currencyTypeID: string
 
   @ApiProperty()
   @IsNotEmpty()
   date: Date;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  platformID: string;
-
-  @ApiProperty()
-  @IsNotEmpty() 
-  amount: number;
 
   @ApiProperty()
   @IsOptional() 
