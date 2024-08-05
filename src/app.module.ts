@@ -11,9 +11,10 @@ import { CurrencyModule } from './currency/currency.module';
 import { PlatformsModule } from './platforms/platforms.module';
 import { SavingTransitionsModule } from './saving-transitions/saving-transitions.module';
 import { TransfersModule } from './transfers/transfers.module';
+import { ArticlesModule } from './articles/articles.module';
 
 @Module({
-  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule],
+  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule, ArticlesModule],
   controllers: [AppController],
   providers: [AppService],
 })
