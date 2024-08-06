@@ -28,4 +28,10 @@ export class PrismaArticlesRepository implements ArticlesRepository{
 
     return ArticleId;
   }
+
+  async countTotalArticles(): Promise<number> {
+    const totalArticles = await prisma.article.count();
+    
+    return totalArticles;
+  }
 }

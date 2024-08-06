@@ -20,4 +20,10 @@ export class ArticlesController {
   async getArticleById(@Param('articleId') articleId: string) {
     return this.articlesService.getArticleById(articleId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('get-total-of-articles')
+  async getTotalOfArticles() {
+    return this.articlesService.getTotalOfArticles();
+  }
 }
