@@ -19,4 +19,13 @@ export class PrismaArticlesRepository implements ArticlesRepository{
     return Article
   }
 
+  async findArticleByID(id: string) {
+    const ArticleId = await prisma.article.findUnique({
+      where: {
+        id
+      },
+    });
+
+    return ArticleId;
+  }
 }

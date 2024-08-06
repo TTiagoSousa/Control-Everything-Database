@@ -1,5 +1,5 @@
 import { ArticlesService } from './articles.service';
-import { Controller, Post, UseGuards, Req, Body } from '@nestjs/common';
+import { Controller, Post, UseGuards, Req, Body, Param, Get } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth-user/jwt.guard';
 import { Request } from 'express';
 import { createArticle_dto } from './dto/create.article_dto';
@@ -13,5 +13,11 @@ export class ArticlesController {
   async createArticle(@Req() req: Request, @Body() dto: createArticle_dto) {
     const userId = req.user['id'];
     return this.articlesService.createArticle(dto, userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':articleId/get-article')
+  async getArticleById(@Param('articleId') articleId: string) {
+    return this.articlesService.getArticleById(articleId);
   }
 }
