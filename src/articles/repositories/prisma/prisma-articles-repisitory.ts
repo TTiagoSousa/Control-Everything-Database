@@ -34,4 +34,22 @@ export class PrismaArticlesRepository implements ArticlesRepository{
     
     return totalArticles;
   }
+
+  async findArticlesPaginated(take: number, skip: number): Promise<SelectedArticleFields[]> {
+    const articles = await prisma.article.findMany({
+      orderBy: {
+        createdAt: 'asc',
+      },
+      select: {
+        id: true,
+        title: true,
+        imageUrl: true,
+        difficulty: true
+      },
+      take,
+      skip,
+    });
+
+    return articles as SelectedArticleFields[];
+  }
 }
