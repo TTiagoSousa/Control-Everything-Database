@@ -1,8 +1,9 @@
-import { Controller, Post, UseGuards, Req, Body, Get, Param, Query, Delete } from '@nestjs/common';
+import { Controller, Post, UseGuards, Req, Body, Get, Param, Query, Delete, Patch } from '@nestjs/common';
 import { SavingTransitionsService } from './saving-transitions.service';
 import { JwtAuthGuard } from 'src/auth-user/jwt.guard';
 import { Request } from 'express';
 import { createSavingTransition_dto } from './dto/create.savings.transition.dto';
+import { updateSavingTransition_dto } from './dto/update.savings.transition.dto';
 
 @Controller('saving-transitions')
 export class SavingTransitionsController {
@@ -62,5 +63,15 @@ export class SavingTransitionsController {
     @Param('targetConvertion') targetConvertion: string,
   ) {
     return this.savingTransitionsService.getTotalOnSavingsTransitionsConverted(userId, targetConvertion);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch(':userId/update-savings-transition/:transitionId')
+  async updateSavingTransition(
+    @Param('userId') userId: string,
+    @Param('transitionId') transitionId: string,
+    @Body() dto: updateSavingTransition_dto,
+  ) {
+    return this.savingTransitionsService.updateSavingTransition(dto, userId, transitionId);
   }
 }

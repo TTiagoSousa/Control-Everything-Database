@@ -7,6 +7,8 @@ import { enableSavingTransition } from './helpers/enable.saving.transition';
 import { disableSavingTransition } from './helpers/disable.saving.transition';
 import { getTotalCurrencyPerPlatform } from './helpers/get.total.currency.per.platform';
 import { getTotalOnSavingsTransitionsConverted } from './helpers/get.total.on.savings.converted';
+import { updateSavingTransition } from './helpers/update.saving.transition';
+import { updateSavingTransition_dto } from './dto/update.savings.transition.dto';
 
 @Injectable()
 export class SavingTransitionsService {
@@ -45,6 +47,11 @@ export class SavingTransitionsService {
 
   async getTotalOnSavingsTransitionsConverted(userId: string, targetConvertion:string) {
     const result = await getTotalOnSavingsTransitionsConverted(userId, targetConvertion);
+    return result;
+  }
+
+  async updateSavingTransition(dto: updateSavingTransition_dto, userId: string, transitionId: string) {
+    const result = await updateSavingTransition(dto, userId, transitionId);
     return result;
   }
 }

@@ -2,10 +2,7 @@ import { IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { TransitionType } from '@prisma/client';
 
-export class modifySavingTransition_dto {
-  @ApiProperty()
-  @IsNotEmpty()
-  id: string;  // Add this line to include the transition ID
+export class updateSavingTransition_dto {
 
   @ApiProperty()
   @IsNotEmpty()
