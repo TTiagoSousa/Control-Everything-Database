@@ -12,9 +12,10 @@ import { PlatformsModule } from './platforms/platforms.module';
 import { SavingTransitionsModule } from './saving-transitions/saving-transitions.module';
 import { TransfersModule } from './transfers/transfers.module';
 import { ArticlesModule } from './articles/articles.module';
+import { PasswordResetModule } from './password-reset/password-reset.module';
 
 @Module({
-  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule, ArticlesModule],
+  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule, ArticlesModule, PasswordResetModule],
   controllers: [AppController],
   providers: [AppService],
 })
