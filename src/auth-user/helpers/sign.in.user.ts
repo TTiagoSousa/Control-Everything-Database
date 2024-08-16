@@ -38,7 +38,7 @@ export async function signinUser (
 
   if (!foundUser.isActive && foundUser) {
     console.log(foundUser)
-    throw new BadRequestException('Account not active');
+    throw new BadRequestException('The account is not active');
   }
 
   const { token, refreshToken } = await userCreateToken({

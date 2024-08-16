@@ -35,7 +35,7 @@ export async function signupUser(
   }
 
   if (!containsOnlyLetters(fullName)) {
-    throw new BadRequestException('The full name can only contain letters only')
+    throw new BadRequestException('The name can only contain letters only')
   }
 
   if (!containsOnlyLettersNumbersAndHyphens(country)) {
@@ -57,7 +57,7 @@ export async function signupUser(
   }
 
   if (!isStrongPassword(password)) {
-    throw new BadRequestException('Password Weak')
+    throw new BadRequestException('Password weak')
   }
 
   const dateOfBirthObj = new Date(dateOfBirth);

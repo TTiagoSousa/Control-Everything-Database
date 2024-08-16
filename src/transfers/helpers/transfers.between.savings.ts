@@ -81,7 +81,7 @@ export async function transfersBetweenSavings(
 
   // Check if there are enough funds
   if (currencyData.total < amount + feesPaid) {
-    throw new BadGatewayException('Insufficient funds in the from platform');
+    throw new BadGatewayException('Insufficient funds from maw platform');
   }
 
   const transferAmount = -amount;
