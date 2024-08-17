@@ -13,9 +13,10 @@ import { SavingTransitionsModule } from './saving-transitions/saving-transitions
 import { TransfersModule } from './transfers/transfers.module';
 import { ArticlesModule } from './articles/articles.module';
 import { PasswordResetModule } from './password-reset/password-reset.module';
+import { HeritageModule } from './heritage/heritage.module';
 
 @Module({
-  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule, ArticlesModule, PasswordResetModule],
+  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule, ArticlesModule, PasswordResetModule, HeritageModule],
   controllers: [AppController],
   providers: [AppService],
 })
