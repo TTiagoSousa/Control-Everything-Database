@@ -22,6 +22,7 @@ model User {
   role              UserRole                @default(paid)
   savingTransitions SavingTransition[]      @relation("createdByUser")
   passwordResetTokens PasswordResetToken[]
+  cryptoTransitions CryptoTransitions[]   @relation("createdBy")
 }
 
 
@@ -156,4 +157,26 @@ model PasswordResetToken {
   token         String   @unique
   expiresAt     DateTime
   createdAt     DateTime @default(now())
+}
+
+model CryptoTransitions {
+  id                String    @id @default(uuid())
+  platform          String
+  orderType         TransitionCryptoTypeRole @default(buy)
+  date              DateTime
+  purchasePrice     Float     
+  quantityPurchased Float     
+  totalSpendUSD     Float     
+  feesCrypto        Float?    
+  feesUSD           Float?   
+  createdById       String
+  cryptoId          String
+  isActive          Boolean
+  createdBy         User      @relation("createdBy", fields: [createdById], references: [id])
+}
+
+enum TransitionCryptoTypeRole {
+  buy
+  sell
+  drop
 }
