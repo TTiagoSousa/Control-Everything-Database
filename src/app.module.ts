@@ -15,9 +15,10 @@ import { ArticlesModule } from './articles/articles.module';
 import { PasswordResetModule } from './password-reset/password-reset.module';
 import { HeritageModule } from './heritage/heritage.module';
 import { CryptoAnalysisModule } from './crypto-analysis/crypto-analysis.module';
+import { CryptoTransitionsModule } from './crypto-transitions/crypto-transitions.module';
 
 @Module({
-  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule, ArticlesModule, PasswordResetModule, HeritageModule, CryptoAnalysisModule],
+  imports: [CountriesModule, UserModule, AuthUserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrencyModule, PlatformsModule, SavingTransitionsModule, TransfersModule, ArticlesModule, PasswordResetModule, HeritageModule, CryptoAnalysisModule, CryptoTransitionsModule],
   controllers: [AppController],
   providers: [AppService],
 })
