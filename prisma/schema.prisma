@@ -173,10 +173,19 @@ model CryptoTransitions {
   cryptoId          String
   isActive          Boolean
   createdBy         User      @relation("createdBy", fields: [createdById], references: [id])
+  crypto            Crypto    @relation(fields: [cryptoId], references: [id])
 }
 
 enum TransitionCryptoTypeRole {
   buy
   sell
   drop
+}
+model Crypto {
+  id                String               @id @default(uuid())
+  cryptoAPIid       String               @unique
+  cryptoName        String
+  cryptoSymbol      String
+  cryptoImage       String
+  cryptoTransitions CryptoTransitions[]
 }
