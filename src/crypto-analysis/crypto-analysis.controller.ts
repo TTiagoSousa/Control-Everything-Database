@@ -18,4 +18,10 @@ export class CryptoAnalysisController {
       return { error: 'Failed to fetch currency price' };
     }
   }
+
+  @Get(':currencyId/get-coin-details')
+  async getCryptoDetails(@Param('currencyId') currencyId: string) {
+    
+    return this.cryptoAnalysisService.getCryptoDetails(currencyId)
+  }
 }

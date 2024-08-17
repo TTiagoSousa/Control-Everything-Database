@@ -97,6 +97,7 @@ model Platform {
   updatedAt           DateTime        @updatedAt
   status              PlatformStatus @default(ACTIVE)
   savingTransition    SavingTransition[]
+  cryptoTransitions   CryptoTransitions[]
 }
 
 enum PlatformStatus {
@@ -161,7 +162,8 @@ model PasswordResetToken {
 
 model CryptoTransitions {
   id                String    @id @default(uuid())
-  platform          String
+  platformID            String
+  platform              Platform        @relation(fields: [platformID], references: [id])
   orderType         TransitionCryptoTypeRole @default(buy)
   date              DateTime
   purchasePrice     Float     
