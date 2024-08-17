@@ -1,5 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { CryptoAnalysisService } from './crypto-analysis.service';
+import { EmployeeRolesGuard } from 'src/employee/guards/roles.guard';
+import { JwtAuthGuard } from 'src/auth-user/jwt.guard';
+import { EmployeeRole } from '@prisma/client';
+import { Roles } from 'src/employee/decorators/roles.decorator';
 
 @Controller('crypto-analysis')
 export class CryptoAnalysisController {
