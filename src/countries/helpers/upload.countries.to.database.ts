@@ -23,11 +23,11 @@ export async function uploadCountriesToDataBase() {
           CoutryFlag: country.flag,
         });
       } catch (insertError) {
-        console.log(insertError)
+
       }
     }
 
   }catch (error) {
-    console.log(error)
+
   }
 }

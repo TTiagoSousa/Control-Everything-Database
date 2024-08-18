@@ -1,4 +1,5 @@
 import { BadRequestException } from "@nestjs/common";
+import { getSinglePriceCrypto } from "src/crypto-analysis/helpers/get.single.price";
 // import { getSinglePriceCrypto } from "src/crypto-analysis/helpers/get.single.price";
 import { PrismaCurrencyRepository } from "src/currency/repository/prisma/prisma-currency-repisitory";
 import { roundToFixed } from "src/utils/numbers/round.to.fixed";
@@ -27,14 +28,14 @@ export async function convertTotalToCurrency(
   if (targetConversion in cryptoSymbols) {
     const cryptoSymbol = cryptoSymbols[targetConversion];
 
-    const cryptoPriceUSD = 0
+    const cryptoPriceUSD = await getSinglePriceCrypto(targetConversion)
     const baseCurrencyInfo = await CurrencyRepository.findByID(baseCurrency);
 
     const targetRate = baseCurrencyInfo.rate;
     const totalInBaseCurrency = total / targetRate;
     const totalConverted = totalInBaseCurrency / cryptoPriceUSD;
 
-    const roundedResult = roundToFixed(totalConverted, 5);
+    const roundedResult = roundToFixed(totalConverted);
 
     return { value: roundedResult, targetSymbol: cryptoSymbol };
 
@@ -42,8 +43,6 @@ export async function convertTotalToCurrency(
 
     const selectedCurrencyInfo = await CurrencyRepository.findByID(targetConversion);
     const baseCurrencyInfo = await CurrencyRepository.findByID(baseCurrency);
-
-    console.log(selectedCurrencyInfo)
 
     if (!selectedCurrencyInfo) {
       throw new BadRequestException("Invalid target currency ID");
@@ -60,7 +59,7 @@ export async function convertTotalToCurrency(
     // Converter de dólares para a moeda escolhida
     const totalConverted = totalInUSD * targetRateUSD;
 
-    const roundedResult = roundToFixed(totalConverted, 2);
+    const roundedResult = roundToFixed(totalConverted);
 
     return { value: roundedResult, targetSymbol: selectedCurrencyInfo.symbol };
   }

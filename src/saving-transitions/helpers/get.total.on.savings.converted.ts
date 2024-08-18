@@ -23,6 +23,6 @@ export async function getTotalOnSavingsTransitionsConverted(
     }
   }
 
-  const roundedResult = roundToFixed(totalConverted, 2);
+  const roundedResult = roundToFixed(totalConverted);
   return { totalConverted: roundedResult, targetSymbol };
 }
