@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { CryptoTransitionsService } from './crypto-transitions.service';
 import { JwtAuthGuard } from 'src/auth-user/jwt.guard';
 import { Request } from 'express';
@@ -14,4 +14,11 @@ export class CryptoTransitionsController {
     const userId = req.user['id'];
     return this.cryptoTransitionsService.createCryptoTransition(dto, userId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':userId/total-of-crypto-transitions')
+  async getTotalCryptoTransitionsByUserId(@Param('userId') userId: string) {
+    return this.cryptoTransitionsService.getTotalCryptoTransitionsByUserId(userId);
+  }
+
 }
