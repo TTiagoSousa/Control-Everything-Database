@@ -21,4 +21,15 @@ export class CryptoTransitionsController {
     return this.cryptoTransitionsService.getTotalCryptoTransitionsByUserId(userId);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get(':userId/get-total-per-coin')
+  async getTotalPerCrypto(@Param('userId') userId: string) {
+    return this.cryptoTransitionsService.getTotalPerCrypto(userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':userId/get-crypto-portefolio')
+  async getCryptoPortefolio(@Param('userId') userId: string) {
+    return this.cryptoTransitionsService.getCryptoPortefolio(userId);
+  }
 }
