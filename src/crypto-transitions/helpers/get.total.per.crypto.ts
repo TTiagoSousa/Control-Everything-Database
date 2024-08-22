@@ -1,5 +1,6 @@
 import { getCryptoDetails } from "src/crypto-analysis/helpers/get.crypto.details";
 import { PrismaCryptoTransitionsRepository } from "../repositories/prisma/prisma-crypto-transitions-repisitory";
+import { roundToFixed } from "src/utils/numbers/round.to.fixed";
 
 export async function getTotalPerCrypto(
   userId: string,
@@ -58,7 +59,7 @@ export async function getTotalPerCrypto(
     cryptoName: cryptoTotals[cryptoID].cryptoName,
     cryptoSymbol: cryptoTotals[cryptoID].cryptoSymbol,
     cryptoImage: cryptoTotals[cryptoID].cryptoImage,
-    totalSpendInUSD: cryptoTotals[cryptoID].totalSpendUSD,
+    totalSpendInUSD: parseFloat(roundToFixed(cryptoTotals[cryptoID].totalSpendUSD)),
     quantityPurchased: cryptoTotals[cryptoID].quantityPurchased,
   }));
 

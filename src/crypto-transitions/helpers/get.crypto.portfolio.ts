@@ -12,6 +12,7 @@ export async function getCryptoPortefolio(
   const cryptoTableWithPrices = await Promise.all(
     totalPerCoin.cryptoTable.map(async (crypto) => {
       const price = await getSinglePriceCrypto(crypto.cryptoID);
+
       const currentInvestment = crypto.quantityPurchased * price;
       const averagePrice = crypto.totalSpendInUSD / crypto.quantityPurchased;
       const currentReturn = currentInvestment - crypto.totalSpendInUSD;
@@ -34,4 +35,3 @@ export async function getCryptoPortefolio(
 
   return { cryptoTable: cryptoTableWithPrices };
 }
-
