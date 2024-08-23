@@ -31,6 +31,9 @@ export async function getTotalPerCrypto(
   const cryptoTotals: { [cryptoId: string]: CryptoTotalsItem } = {};
 
   for (const transition of cryptoTransitions) {
+
+    if (!transition.isActive) continue;
+
     const { cryptoId, totalSpendUSD, quantityPurchased, feesCrypto  } = transition;
     let cryptoApiID = '';
     let cryptoName = '';
