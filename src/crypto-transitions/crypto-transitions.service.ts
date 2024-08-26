@@ -4,7 +4,6 @@ import { createCryptoTransition_dto } from './dto/create.crypto.transition.dto';
 import { getTotalCryptoTransitionsByUserId } from './helpers/get.total.crypto.transitions.by.user';
 import { getTotalPerCrypto } from './helpers/get.total.per.crypto';
 import { getCryptoPortefolio } from './helpers/get.crypto.portfolio';
-import { getTotalSpentAndCurrentInvestment } from './helpers/get.total.spent.and.current.investment';
 
 @Injectable()
 export class CryptoTransitionsService {
@@ -27,12 +26,6 @@ export class CryptoTransitionsService {
 
   async getCryptoPortefolio(userId: string){
     const result = await getCryptoPortefolio(userId);
-    
-    return result
-  }
-
-  async getTotalSpentAndCurrentInvestment(userId: string){
-    const result = await getTotalSpentAndCurrentInvestment(userId);
     
     return result
   }

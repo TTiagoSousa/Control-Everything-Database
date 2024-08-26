@@ -32,10 +32,5 @@ export class CryptoTransitionsController {
   async getCryptoPortefolio(@Param('userId') userId: string) {
     return this.cryptoTransitionsService.getCryptoPortefolio(userId);
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get(':userId/get-total-spent-and-current-investment')
-  async getTotalSpentAndCurrentInvestment(@Param('userId') userId: string) {
-    return this.cryptoTransitionsService.getTotalSpentAndCurrentInvestment(userId);
-  }
+  
 }
