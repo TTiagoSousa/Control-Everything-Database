@@ -19,7 +19,7 @@ export async function createCryptoTransition (
   const cryptoDetailsResponse = await getCryptoDetails(cryptoId);
 
   if (cryptoDetailsResponse.status !== "success" || !cryptoDetailsResponse.data?.coin) {
-    throw new BadRequestException('Criptomoeda não encontrada.');
+    throw new BadRequestException('Crypto not found');
   }
 
   const existingCrypto = cryptoDetailsResponse.data.coin;
@@ -27,7 +27,7 @@ export async function createCryptoTransition (
   const count = await CryptoTransitionRepository.countByUserId(userId)
 
   if (count === 0 && orderType !== 'buy') {
-    throw new BadGatewayException('The first transition must be a buy');
+    throw new BadGatewayException('The first transition must be a purchase');
   }
 
   if(!containsOnlyLettersNumbersAndHyphens(platformID)) {
