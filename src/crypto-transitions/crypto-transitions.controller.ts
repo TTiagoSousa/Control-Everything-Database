@@ -44,4 +44,12 @@ export class CryptoTransitionsController {
   async getTotalSpentAndCurrentInvestment(@Param('userId') userId: string) {
     return this.cryptoTransitionsService.getTotalSpentAndCurrentInvestment(userId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':userId/get-total-converted/:targetConvertion')
+  async getTotalCurrentInvestment(    
+    @Param('userId') userId: string,
+    @Param('targetConvertion') targetConvertion: string,) {
+    return this.cryptoTransitionsService.getTotalCurrentInvestment(userId, targetConvertion);
+  }
 }
