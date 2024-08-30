@@ -8,6 +8,7 @@ import { getTotalSpentPerCrypto } from './helpers/get.total.spent.per.crypto';
 import { getCurrentInvestment } from './helpers/get.current.investent';
 import { getTotalSpentAndCurrentInvestment } from './helpers/get.total.spent.and.current.investment';
 import { getTotalCurrentInvestment } from './helpers/get.total.current.investment.crypto';
+import { calculateCryptoValueEvolution } from './helpers/calculate.crypto.value.evolution';
 
 @Injectable()
 export class CryptoTransitionsService {
@@ -50,5 +51,10 @@ export class CryptoTransitionsService {
     const result = await getTotalCurrentInvestment(userId, targetConversion);
     
     return result
+  }
+
+  async calculateCryptoValueEvolution(userId: string, timePeriod: string) {
+    const result = await calculateCryptoValueEvolution(userId, timePeriod);
+    return result;
   }
 }

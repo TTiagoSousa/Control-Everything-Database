@@ -47,4 +47,18 @@ export class PrismaCryptoTransitionsRepository implements CryptoTransitionReposi
     return firstTransition;
   }
   
+  async getPurchaseDate(userId: string, cryptoId: string): Promise<Date | null> {
+    const transition = await prisma.cryptoTransitions.findFirst({
+      where: {
+        createdById: userId,
+        cryptoId: cryptoId,
+        isActive: true,
+      },
+      orderBy: {
+        date: 'asc', // Ordena pela data em ordem crescente para pegar a data de compra mais antiga
+      },
+    });
+
+    return transition ? transition.date : null;
+  }
 }
