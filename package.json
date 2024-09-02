@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "@nestjs/axios": "^3.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.2",
@@ -38,6 +39,8 @@
     "cookie-parse": "^0.4.0",
     "cookie-parser": "^1.4.6",
     "cron-parser": "^4.9.0",
+    "disposable-email": "^0.2.3",
+    "faker": "^6.6.6",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.13",
     "passport": "^0.7.0",
