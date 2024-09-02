@@ -40,7 +40,7 @@ export async function signupUser(
 
   const hashedPassword = await hashPassword(password);
 
-  const randomName = faker.name.fullName();
+  const randomName = `User${faker.datatype.number({ min: 1000, max: 9999 })}`;
 
   await sendActivationEmail(email, activationToken, emailService);
 
