@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Currency" ALTER COLUMN "code" SET DATA TYPE TEXT;
