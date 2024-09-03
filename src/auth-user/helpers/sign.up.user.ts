@@ -22,7 +22,7 @@ export async function signupUser(
   const activationToken = jwt.sign({ email }, { expiresIn: '1d' });
 
   if (!isValidEmail(email)) {
-    throw new BadRequestException('Invalid email')
+    throw new BadRequestException('Invalid email address')
   }
 
   const foundUser = await usersRepository.findUserByEmail(email);
@@ -35,7 +35,7 @@ export async function signupUser(
   }
 
   if (!isStrongPassword(password)) {
-    throw new BadRequestException('Password weak')
+    throw new BadRequestException('Password is too weak')
   }
 
   const hashedPassword = await hashPassword(password);
