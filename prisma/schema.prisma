@@ -24,16 +24,17 @@ enum UserRole {
 }
 
 model Currency {
-  id              String   @id @default(uuid())
-  code            String   @unique
-  symbol          String
-  name            String
-  symbol_native   String
-  decimal_digits  Int
-  rounding        Int
-  name_plural     String
-  type            String
-  rate            Float
-  createdAt       DateTime @default(now())    // For tracking when the currency was added
-  updatedAt       DateTime @updatedAt
+  id                  String   @id @default(uuid())
+  name                String
+  short_code          String   @unique
+  code                String
+  precision           Int
+  subunit             String
+  symbol              String
+  symbol_first        Boolean
+  decimal_mark        String
+  thousands_separator String
+  rate                Float
+  createdAt           DateTime @default(now())    // Para rastrear quando a moeda foi adicionada
+  updatedAt           DateTime @updatedAt
 }
