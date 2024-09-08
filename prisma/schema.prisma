@@ -22,3 +22,18 @@ enum UserRole {
   notPaid
   paid
 }
+
+model Currency {
+  id              String   @id @default(uuid())
+  code            String   @unique
+  symbol          String
+  name            String
+  symbol_native   String
+  decimal_digits  Int
+  rounding        Int
+  name_plural     String
+  type            String
+  rate            Float
+  createdAt       DateTime @default(now())    // For tracking when the currency was added
+  updatedAt       DateTime @updatedAt
+}
