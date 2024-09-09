@@ -9,6 +9,8 @@ import { EmployeeRolesGuard } from 'src/employee/guards/roles.guard';
 export class CurrenciesController {
   constructor(private readonly currenciesService: CurrenciesService) {}
 
+  @UseGuards(JwtAuthGuard, EmployeeRolesGuard)
+  @Roles(EmployeeRole.ADMIN)
   @Post('upload-currencies-to-database')
   async createCurrency() {
     const uploadupdatedCurrencies = await this.currenciesService.uploadCurrenciesToDatabase();
