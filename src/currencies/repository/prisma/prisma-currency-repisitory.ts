@@ -28,4 +28,17 @@ export class PrismaCurrencyRepository implements CurrencyRepository{
 
     return currencies;
   }
+
+  async updateRate(short_code: string, rate: number) {
+    const updatedCurrency = await prisma.currency.update({
+      where: {
+        short_code,
+      },
+      data: {
+        rate,
+      },
+    });
+
+    return updatedCurrency;
+  }
 }
