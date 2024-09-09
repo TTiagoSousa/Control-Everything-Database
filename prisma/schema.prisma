@@ -29,7 +29,6 @@ model Currency {
   short_code          String   @unique
   code                String
   precision           Int
-  subunit             String
   symbol              String
   symbol_first        Boolean
   decimal_mark        String
