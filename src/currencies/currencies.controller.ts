@@ -7,7 +7,7 @@ export class CurrenciesController {
 
   @Post('upload-currencies-to-database')
   async createCurrency() {
-    const updatedCurrencies = await this.currenciesService.uploadCurrenciesToDatabase();
-    return { updatedCurrencies };
+    const uploadupdatedCurrencies = await this.currenciesService.uploadCurrenciesToDatabase();
+    return { uploadupdatedCurrencies };
   }
 }
