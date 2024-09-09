@@ -37,3 +37,20 @@ model Currency {
   createdAt           DateTime @default(now())    // Para rastrear quando a moeda foi adicionada
   updatedAt           DateTime @updatedAt
 }
+
+model Employee {
+  id                String                  @id @unique @default(uuid())
+  isActive          Boolean                 @default(false)
+  createdAt         DateTime                @default(now())
+  email             String                  @unique
+  hashedPassword    String
+  employeeNumber    Int                     @unique
+  jobTitle          EmployeeRole            @default(NOT_ASSIGNED)
+}
+
+enum EmployeeRole {
+  ADMIN
+  PROGRAMMER
+  CUSTOMER_SUPPORT
+  NOT_ASSIGNED
+}
