@@ -54,23 +54,3 @@ enum EmployeeRole {
   CUSTOMER_SUPPORT
   NOT_ASSIGNED
 }
-
-model FunctionValidation {
-  id               String            @id @unique @default(uuid())
-  functionName     String      
-  validations      ValidationItem[] 
-}
-
-model ValidationItem {
-  id                        String            @id @unique @default(uuid())
-  validation                String         
-  status                    FunctionStatus    @default(PENDING) 
-  function                  FunctionValidation @relation(fields: [functionValidationId], references: [id])
-  functionValidationId      String      
-}
-
-enum FunctionStatus {
-  PENDING        
-  ACTIVE           
-  INACTIVE         
-}
