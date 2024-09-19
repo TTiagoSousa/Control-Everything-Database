@@ -16,6 +16,7 @@ model User {
   hashedPassword    String
   isPaidUser        Boolean                 @default(false)
   role              UserRole                @default(paid)
+  passwordResetToken PasswordResetToken[]
 }
 
 enum UserRole {
@@ -53,4 +54,13 @@ enum EmployeeRole {
   PROGRAMMER
   CUSTOMER_SUPPORT
   NOT_ASSIGNED
+}
+
+model PasswordResetToken {
+  id            String   @id @default(uuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id])
+  token         String   @unique
+  expiresAt     DateTime
+  createdAt     DateTime @default(now())
 }
