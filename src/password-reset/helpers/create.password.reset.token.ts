@@ -19,13 +19,20 @@ export async function createPasswordResetToken(
 
   const tokenCode = generateCode();
   const expiresAt = new Date();
-  expiresAt.setMinutes(expiresAt.getMinutes() + 5);
+  expiresAt.setMinutes(expiresAt.getMinutes() + 20); // Alterado para 20 minutos
 
   try {
     // Check if a token already exists for the user
     const existingToken = await resetPasswordRepository.findByUserId(userId);
 
     if (existingToken) {
+      const now = new Date();
+
+      // Verifica se o token ainda está ativo
+      if (existingToken.expiresAt > now) {
+        throw new BadRequestException("An email has already been sent recently. Please check your inbox");
+      }
+
       // Update the existing token with the new values
       const updatedToken = await resetPasswordRepository.update(existingToken.id, {
         token: tokenCode,
@@ -50,9 +57,6 @@ export async function createPasswordResetToken(
       return newToken;
     }
   } catch (error) {
-    throw new BadRequestException(error);
+    throw new BadRequestException(error.message || "An error occurred while creating the reset token.");
   }
 }
-
-// emailToUpdatePassword.ts
-
