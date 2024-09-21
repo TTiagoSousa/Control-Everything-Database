@@ -64,3 +64,11 @@ model PasswordResetToken {
   expiresAt     DateTime
   createdAt     DateTime @default(now())
 }
+
+model AuthorizedBroker {
+  id            String   @id @default(uuid())
+  name          String   @unique   
+  baseUrl       String                    
+  isActive      Boolean  @default(true)  
+  createdAt     DateTime @default(now()) 
+}
