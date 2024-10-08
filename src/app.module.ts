@@ -8,10 +8,10 @@ import { CurrenciesModule } from './currencies/currencies.module';
 import { AuthEmployeeModule } from './auth-employee/auth-employee.module';
 import { EmployeeModule } from './employee/employee.module';
 import { PasswordResetModule } from './password-reset/password-reset.module';
-import { AutorizedBorkerApiModule } from './autorized-borker-api/autorized-borker-api.module';
+import { AutorizedBrokerApiModule } from './autorized-broker-api/autorized-broker-api.module';
 
 @Module({
-  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBorkerApiModule],
+  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBrokerApiModule],
   controllers: [AppController],
   providers: [AppService],
 })
