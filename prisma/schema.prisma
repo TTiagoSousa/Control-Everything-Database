@@ -78,7 +78,8 @@ model AuthorizedBroker {
 model SavingsTransitions {
   id                    String          @id @default(uuid())
   transitionType        TransitionType
-  platform              String
+  platformID             String
+  platform              Platform        @relation(fields: [platformID], references: [id])
   amount                Float
   currencyTypeID        String
   isActive              Boolean         @default(true)
@@ -92,4 +93,27 @@ model SavingsTransitions {
 enum TransitionType {
   DEPOSIT
   WITHDRAWAL
+}
+
+model Platform {
+  id                  String      @id @default(uuid())
+  name                String
+  image               String
+  type                PlatformType
+  website             String           @unique
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  status              PlatformStatus @default(ACTIVE)
+  savingTransition    SavingsTransitions[]
+}
+
+enum PlatformStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum PlatformType {
+  Bank
+  Crypto_Exchange
+  Crypto_Wallet
 }
