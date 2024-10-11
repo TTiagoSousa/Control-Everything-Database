@@ -17,6 +17,7 @@ model User {
   isPaidUser        Boolean                 @default(false)
   role              UserRole                @default(paid)
   passwordResetToken PasswordResetToken[]
+  savingTransitions SavingsTransitions[]      @relation("createdByUser")
 }
 
 enum UserRole {
@@ -37,6 +38,7 @@ model Currency {
   rate                Float
   createdAt           DateTime @default(now())    // Para rastrear quando a moeda foi adicionada
   updatedAt           DateTime @updatedAt
+  savingsTransitions    SavingsTransitions[]
 }
 
 model Employee {
@@ -71,4 +73,23 @@ model AuthorizedBroker {
   baseUrl       String                    
   isActive      Boolean  @default(true)  
   createdAt     DateTime @default(now()) 
+}
+
+model SavingsTransitions {
+  id                    String          @id @default(uuid())
+  transitionType        TransitionType
+  platform              String
+  amount                Float
+  currencyTypeID        String
+  isActive              Boolean         @default(true)
+  date                  DateTime        @default(now())
+  createdBy             User            @relation("createdByUser", fields: [createdById], references: [id])
+  createdById           String
+  currency              Currency        @relation(fields: [currencyTypeID], references: [id])
+  description           String?
+}
+
+enum TransitionType {
+  DEPOSIT
+  WITHDRAWAL
 }
