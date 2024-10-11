@@ -12,4 +12,13 @@ export class PrismaPlatformRepository implements PlatformRepository{
     return platform
   }
 
+  async findPlatformByID(id: string) {
+    const PlatformID = await prisma.platform.findUnique({
+      where: {
+        id
+      },
+    });
+
+    return PlatformID;
+  }
 }
