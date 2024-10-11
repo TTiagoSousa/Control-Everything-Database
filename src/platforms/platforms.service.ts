@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { addNewPlatform } from './helpers/add.new.platform';
 import { addNewPlatform_dto } from './dto/add.new.platform';
+import { GetPlatformsFromDataBase } from './helpers/get.platforms.from.database';
 
 @Injectable()
 export class PlatformsService {
@@ -10,4 +11,8 @@ export class PlatformsService {
     return result;
   }
 
+  async GetPlatformsFromDataBase() {
+    const result = await GetPlatformsFromDataBase();
+    return result;
+  }
 }

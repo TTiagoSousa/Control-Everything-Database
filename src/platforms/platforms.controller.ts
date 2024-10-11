@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { PlatformsService } from './platforms.service';
 import { addNewPlatform_dto } from './dto/add.new.platform';
 import { Roles } from 'src/employee/decorators/roles.decorator';
@@ -16,5 +16,11 @@ export class PlatformsController {
   async signup_User(@Body() dto: addNewPlatform_dto) {
 
     return this.platformsService.addNewPlatform(dto);
+  }
+
+  @Get('get-all-platforms')
+  async GetPlatformsFromDataBase() {
+    const platforms = await this.platformsService.GetPlatformsFromDataBase();
+    return { platforms };
   }
 }

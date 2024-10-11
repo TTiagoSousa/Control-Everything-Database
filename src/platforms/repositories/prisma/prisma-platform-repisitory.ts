@@ -21,4 +21,10 @@ export class PrismaPlatformRepository implements PlatformRepository{
 
     return PlatformID;
   }
+
+  async findAll(){
+    const paltforms = await prisma.platform.findMany();
+
+    return paltforms;
+  }
 }
