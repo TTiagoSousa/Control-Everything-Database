@@ -10,9 +10,10 @@ import { EmployeeModule } from './employee/employee.module';
 import { PasswordResetModule } from './password-reset/password-reset.module';
 import { AutorizedBrokerApiModule } from './autorized-broker-api/autorized-broker-api.module';
 import { BrokersModule } from './brokers/brokers.module';
+import { SavingsTransitionsModule } from './savings-transitions/savings-transitions.module';
 
 @Module({
-  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBrokerApiModule, BrokersModule],
+  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBrokerApiModule, BrokersModule, SavingsTransitionsModule],
   controllers: [AppController],
   providers: [AppService],
 })
