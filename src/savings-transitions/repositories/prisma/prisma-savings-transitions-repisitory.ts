@@ -22,4 +22,27 @@ export class PrismaSavingsTransitionsRepository implements SavingsTransitionsRep
     return count;
   }
 
+  async findLast12MonthsByUser(userId: string) {
+    const startDate = new Date();
+    startDate.setMonth(startDate.getMonth() - 12);
+    startDate.setDate(1); // Primeiro dia de 12 meses atrás
+
+    const savingsTransitions = await prisma.savingsTransitions.groupBy({
+      by: ['currencyTypeID', 'date'],
+      _sum: {
+        amount: true
+      },
+      where: {
+        createdById: userId,
+        date: {
+          gte: startDate,
+        },
+      },
+      orderBy: {
+        date: 'asc'
+      }
+    });
+
+    return savingsTransitions;
+  }
 }
