@@ -17,9 +17,18 @@ export class SavingsTransitionsController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':userId/total-per-month-in-the-last-twelve-months')
-  async getTotalOnSavingsTransitionsConverted(
+  async printInvestments(
     @Param('userId') userId: string,
   ) {
     return this.savingsTransitionsService.printInvestments(userId);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get(':userId/get-total-on-savings-converted/:targetConvertion')
+  async getTotalOnSavingsTransitionsConverted(
+    @Param('userId') userId: string,
+    @Param('targetConvertion') targetConvertion: string,
+  ) {
+    return this.savingsTransitionsService.getTotalOnSavingsTransitionsConverted(userId, targetConvertion);
   }
 }

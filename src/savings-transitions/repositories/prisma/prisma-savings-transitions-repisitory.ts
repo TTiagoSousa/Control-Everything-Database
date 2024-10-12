@@ -45,4 +45,15 @@ export class PrismaSavingsTransitionsRepository implements SavingsTransitionsRep
 
     return savingsTransitions;
   }
+
+  async findAll(userId: string): Promise<SavingsTransitions[]>{
+    const savingTransitions = await prisma.savingsTransitions.findMany({
+      where:{
+        createdById: userId,
+        isActive: true,
+      },
+    })
+
+    return savingTransitions
+  }
 }
