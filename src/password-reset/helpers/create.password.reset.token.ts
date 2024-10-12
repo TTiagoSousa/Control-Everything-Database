@@ -27,12 +27,7 @@ export async function createPasswordResetToken(
 
     if (existingToken) {
       const now = new Date();
-
-      // Verifica se o token ainda está ativo
-      if (existingToken.expiresAt > now) {
-        throw new BadRequestException("An email has already been sent recently. Please check your inbox");
-      }
-
+      
       // Update the existing token with the new values
       const updatedToken = await resetPasswordRepository.update(existingToken.id, {
         token: tokenCode,
