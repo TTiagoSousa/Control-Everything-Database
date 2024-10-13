@@ -70,9 +70,11 @@ model PasswordResetToken {
 model AuthorizedBroker {
   id            String   @id @default(uuid())
   name          String   @unique   
-  baseUrl       String                    
+  logo          String
+  website       String                    
   isActive      Boolean  @default(true)  
   createdAt     DateTime @default(now()) 
+  type          PlatformType
 }
 
 model SavingsTransitions {
@@ -98,22 +100,18 @@ enum TransitionType {
 model Platform {
   id                  String      @id @default(uuid())
   name                String
-  image               String
+  logo                String
   type                PlatformType
   website             String           @unique
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
-  status              PlatformStatus @default(ACTIVE)
+  isActive            Boolean  @default(true)
   savingTransition    SavingsTransitions[]
-}
-
-enum PlatformStatus {
-  ACTIVE
-  INACTIVE
 }
 
 enum PlatformType {
   Bank
+  Broker
   Crypto_Exchange
   Crypto_Wallet
 }

@@ -8,14 +8,13 @@ export async function addNewPlatform(
 
   const platformRepository = new PrismaPlatformRepository();
 
-  const { name, image, website, type } = dto
+  const { name, logo, website, type } = dto
 
   const creationResult = await platformRepository.create({
-    image : image,
+    logo : logo,
     name: name,
     website: website,
     type: type as PlatformType,
-    status: "ACTIVE"
   })
 
   return creationResult
