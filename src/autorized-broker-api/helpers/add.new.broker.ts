@@ -2,7 +2,8 @@ import { PlatformType } from "@prisma/client";
 import { PrismaAuthorizedBrokerRepository } from "../repositories/prisma/prisma-autorized-broker-api-repisitory";
 import { addNewAutorizedBroker_dto } from "../dto/add.new.autorized.broker.api_dto";
 
-export async function addNewPlatform(
+export async function addNewBroker(
+  userID: String,
   dto: addNewAutorizedBroker_dto,
 ) {
 
