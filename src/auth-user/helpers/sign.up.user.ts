@@ -1,16 +1,13 @@
 import { BadRequestException } from "@nestjs/common";
-import { Gender } from "@prisma/client";
-import { PrismaCountriesRepository } from "src/countries/repositories/prisma/prisma-countries-repository";
 import { EmailService } from "src/email/email.service";
-import { signup_dto } from "src/user/dto/sing.up.user.dto";
 import { PrismaUsersRepository } from "src/user/repositories/prisma/prisma-user-repisitory";
-import { isValidEmail } from "src/utils/email/is.valide.email";
-import { hashPassword } from "src/utils/password/hashPassword";
-import { isStrongPassword } from "src/utils/password/is.password.strong";
-import { containsOnlyLetters } from "src/utils/text/contains.only.letters";
-import { containsOnlyLettersNumbersAndHyphens } from "src/utils/text/contains.only.letters.numbers.and.hyphens";
 import { JwtService } from '@nestjs/jwt';
-import { sendActivationEmail } from "./email/send.activation.email";
+import { signup_dto } from "../dto/sing.up.user.dto";
+import { isValidEmail } from "src/utils/email/is.valide.email";
+import { isStrongPassword } from "src/utils/password/is.password.strong";
+import { hashPassword } from "src/utils/password/hashPassword";
+import { faker } from '@faker-js/faker';
+import { sendActivationEmail } from "../email/send.activation.email";
 
 export async function signupUser(
   dto: signup_dto,
@@ -18,15 +15,14 @@ export async function signupUser(
   emailService: EmailService,
 ) {
 
-  const usersRepository = new PrismaUsersRepository();
-  const countryRepository = new PrismaCountriesRepository();
+  const { email, password, confirmPassword } = dto;
 
-  const { email, password, fullName, confirmPassword, dateOfBirth, country, gender } = dto;
+  const usersRepository = new PrismaUsersRepository();
 
   const activationToken = jwt.sign({ email }, { expiresIn: '1d' });
 
   if (!isValidEmail(email)) {
-    throw new BadRequestException('Invalid email')
+    throw new BadRequestException('Invalid email address')
   }
 
   const foundUser = await usersRepository.findUserByEmail(email);
@@ -34,48 +30,24 @@ export async function signupUser(
     throw new BadRequestException('Email already exists')
   }
 
-  if (!containsOnlyLetters(fullName)) {
-    throw new BadRequestException('The full name can only contain letters only')
-  }
-
-  if (!containsOnlyLettersNumbersAndHyphens(country)) {
-    throw new BadRequestException('Invalid country')
-  }
-
-  const countryId = await countryRepository.findCountryByID(country);
-  if (!countryId) {
-    throw new BadRequestException('Invalid country');
-  }
-
-  const capitalizedFullName = fullName
-  .split(' ')
-  .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-  .join(' ');
-
   if (password !== confirmPassword) {
     throw new BadRequestException('Passwords do not match')
   }
 
   if (!isStrongPassword(password)) {
-    throw new BadRequestException('Password Weak')
-  }
-
-  const dateOfBirthObj = new Date(dateOfBirth);
-  if (isNaN(dateOfBirthObj.getTime())) {
-    throw new BadRequestException('Invalid date of birth');
+    throw new BadRequestException('Password is too weak')
   }
 
   const hashedPassword = await hashPassword(password);
 
-  await sendActivationEmail(email, activationToken, fullName, emailService);
+  const randomName = `User${faker.datatype.number({ min: 1000, max: 9999 })}`;
+
+  await sendActivationEmail(email, activationToken, emailService);
 
   const creationResult = await usersRepository.create({
+    fullName: randomName,
     email: email,
-    fullName: capitalizedFullName,
-    dateOfBirth: dateOfBirthObj,
-    countryId: country,
     hashedPassword: hashedPassword,
-    gender: gender as Gender,
   });
 
   return creationResult

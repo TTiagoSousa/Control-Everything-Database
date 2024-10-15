@@ -1,5 +1,5 @@
 import { JwtService } from "@nestjs/jwt";
-import { signin_user_dto } from "src/user/dto/sign.in.user.dto";
+import { signin_user_dto } from "src/auth-user/dto/sign.in.user.dto"
 import { PrismaUsersRepository } from "src/user/repositories/prisma/prisma-user-repisitory";
 import { Request, Response } from 'express';
 import { comparePasswords } from "src/utils/password/compare.passwords";
@@ -18,7 +18,7 @@ export async function signinUser (
   const usersRepository = new PrismaUsersRepository();
   
   if (!isValidEmail(email)) { 
-    throw new BadRequestException('Invalid email')
+    throw new BadRequestException('Invalid email address')
   }
 
   const foundUser = await usersRepository.findUserByEmail(email);
@@ -37,8 +37,8 @@ export async function signinUser (
   }
 
   if (!foundUser.isActive && foundUser) {
-    console.log(foundUser)
-    throw new BadRequestException('Account not active');
+
+    throw new BadRequestException('The account is not active');
   }
 
   const { token, refreshToken } = await userCreateToken({

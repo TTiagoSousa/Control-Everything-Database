@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { signin_employee_dto } from '../employee/dto/signin.employee.dto';
 import { signinEmployee } from './helpers/sign.in.employee';
-import { signin_employee_dto } from 'src/employee/dto/signin.employee.dto';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

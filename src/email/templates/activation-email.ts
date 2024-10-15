@@ -1,4 +1,4 @@
-export default function activationEmailTemplate(activationLink: string, fullName: string): string {
+export default function activationEmailTemplate(activationLink: string): string {
     return `
       <html>
         <head>
@@ -83,7 +83,6 @@ export default function activationEmailTemplate(activationLink: string, fullName
             </div>
             <div class="Text">
               <p>Hellow</p>
-              <p>${fullName}</p>
               <p>Thank you for signing up with our service. To activate your account, please click the button below:</p>
             </div>
             <div class="Active_Link">

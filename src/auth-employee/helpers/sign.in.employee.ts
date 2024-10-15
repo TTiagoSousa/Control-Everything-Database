@@ -1,11 +1,11 @@
 import { JwtService } from "@nestjs/jwt";
 import { Request, Response } from 'express';
-import { PrismaEmployeeRepository } from "src/employee/repositories/prisma/prisma-employee-repisitory"; 
-import { comparePasswords } from "src/utils/password/compare.passwords";
 import { BadRequestException } from "@nestjs/common";
-import { isValidEmail } from "src/utils/email/is.valide.email";
-import { employeeCreateToken } from "src/utils/token/employee.signin.token"; 
-import { signin_employee_dto } from "src/employee/dto/signin.employee.dto"; 
+import { PrismaEmployeeRepository } from "../../employee/repositories/prisma/prisma-employee-repisitory";
+import { signin_employee_dto } from '../../employee/dto/signin.employee.dto';
+import { isValidEmail } from '../../utils/email/is.valide.email';
+import { comparePasswords } from '../../utils/password/compare.passwords';
+import { employeeCreateToken } from '../../utils/token/employee.signin.token';
 
 export async function signinEmployee (
   dto: signin_employee_dto,
@@ -19,7 +19,7 @@ export async function signinEmployee (
   const employeesRepository = new PrismaEmployeeRepository();
 
   if (!isValidEmail(email)) {
-    throw new BadRequestException('Invalid email')
+    throw new BadRequestException('Invalid email address')
   }
 
   const foundEmployeeByEmail = await employeesRepository.findByEmail(email);

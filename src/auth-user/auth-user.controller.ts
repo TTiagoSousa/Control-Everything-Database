@@ -1,7 +1,7 @@
-import { Body, Controller, Post, Res, Req, Patch, Param } from '@nestjs/common';
+import { Body, Controller, Post, Req, Res } from '@nestjs/common';
 import { AuthUserService } from './auth-user.service';
-import { signup_dto } from 'src/user/dto/sing.up.user.dto';
-import { signin_user_dto } from 'src/user/dto/sign.in.user.dto';
+import { signup_dto } from './dto/sing.up.user.dto';
+import { signin_user_dto } from './dto/sign.in.user.dto';
 
 @Controller('auth-user')
 export class AuthUserController {
@@ -13,31 +13,9 @@ export class AuthUserController {
     return this.authUserService.signupUser(dto);
   }
 
-  @Post('send-email-to-reset-password-user')
-  async sendResetPasswordEmailToUser(@Body('email') email: string) {
-
-   await this.authUserService.sendResetPasswordEmail(email)
-
-    return;
-  }
-
   @Post('sign-in')
   async signinUser(@Body() dto: signin_user_dto, @Req() req, @Res() res) {
 
     return this.authUserService.signinUser(dto, req, res);
-  }
-
-  @Patch('reset-password-user/:token')
-  async resetPassword(@Param('token') token: string, @Body('newPassword') newPassword: string) {
-    await this.authUserService.resetPasswordUser(token, newPassword);
-    return { message: 'Password reset successfully' };
-  }
-
-  @Patch('activate-user/:token')
-  async activeUserAccount(@Param('token') token: string) {
-
-    await this.authUserService.activeUserAccount(token);
-
-    return
   }
 }

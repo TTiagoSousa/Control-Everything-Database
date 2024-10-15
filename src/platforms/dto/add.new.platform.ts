@@ -10,7 +10,7 @@ export class addNewPlatform_dto {
 
   @ApiProperty()
   @IsNotEmpty()
-  image: string;
+  logo: string;
 
   @ApiProperty()
   @IsNotEmpty()
