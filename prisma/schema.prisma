@@ -77,6 +77,15 @@ model AuthorizedBroker {
   createdAt     DateTime @default(now()) 
   type          PlatformType
   apiKeys       UserApiKey[]
+  features      BrokerFeature[]  @relation("BrokerFeatures")
+}
+
+model BrokerFeature {
+  id                      String           @id @default(uuid())
+  name                    String
+  description             String?
+  authorizedBroker        AuthorizedBroker @relation("BrokerFeatures", fields: [authorizedBrokerId], references: [id])
+  authorizedBrokerId      String
 }
 
 model SavingsTransitions {
