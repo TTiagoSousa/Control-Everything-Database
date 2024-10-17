@@ -18,6 +18,7 @@ model User {
   role              UserRole                @default(paid)
   passwordResetToken PasswordResetToken[]
   savingTransitions SavingsTransitions[]      @relation("createdByUser")
+  apiKeys           UserApiKey[]
 }
 
 enum UserRole {
@@ -75,6 +76,7 @@ model AuthorizedBroker {
   isActive      Boolean  @default(true)  
   createdAt     DateTime @default(now()) 
   type          PlatformType
+  apiKeys       UserApiKey[]
 }
 
 model SavingsTransitions {
@@ -114,4 +116,14 @@ enum PlatformType {
   Broker
   Crypto_Exchange
   Crypto_Wallet
+}
+
+model UserApiKey {
+  id                            String            @id @default(uuid())
+  hashKey                       String            @unique
+  createdAt                     DateTime          @default(now())
+  user                          User              @relation(fields: [userId], references: [id])
+  userId                        String
+  authorizedBroker              AuthorizedBroker  @relation(fields: [authorizedBrokerId], references: [id])
+  authorizedBrokerId            String
 }
