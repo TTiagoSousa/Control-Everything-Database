@@ -78,6 +78,7 @@ model AuthorizedBroker {
   type          PlatformType
   apiKeys       UserApiKey[]
   features      BrokerFeature[]  @relation("BrokerFeatures")
+  credentialRequirement   CredentialRequirement
 }
 
 model BrokerFeature {
@@ -130,9 +131,15 @@ enum PlatformType {
 model UserApiKey {
   id                            String            @id @default(uuid())
   hashKey                       String            @unique
+  hashSecretKey                 String?           @unique  // Agora opcional
   createdAt                     DateTime          @default(now())
   user                          User              @relation(fields: [userId], references: [id])
   userId                        String
   authorizedBroker              AuthorizedBroker  @relation(fields: [authorizedBrokerId], references: [id])
   authorizedBrokerId            String
+}
+
+enum CredentialRequirement {
+  KEY_ONLY
+  KEY_AND_SECRET
 }
