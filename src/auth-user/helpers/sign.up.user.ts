@@ -8,6 +8,7 @@ import { isStrongPassword } from "src/utils/password/is.password.strong";
 import { hashPassword } from "src/utils/password/hashPassword";
 import { faker } from '@faker-js/faker';
 import { sendActivationEmail } from "../email/send.activation.email";
+import { isDisposableEmail } from "src/utils/email/is.disposable.email";
 
 export async function signupUser(
   dto: signup_dto,
@@ -23,6 +24,11 @@ export async function signupUser(
 
   if (!isValidEmail(email)) {
     throw new BadRequestException('Invalid email address')
+  }
+
+  const isDisposable = await isDisposableEmail(email);
+  if (isDisposable) {
+    throw new BadRequestException('Disposable emails are not allowed');
   }
 
   const foundUser = await usersRepository.findUserByEmail(email);
