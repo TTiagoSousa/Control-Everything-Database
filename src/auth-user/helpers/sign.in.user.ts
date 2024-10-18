@@ -6,6 +6,7 @@ import { comparePasswords } from "src/utils/password/compare.passwords";
 import { userCreateToken } from "src/utils/token/user.signin.token";
 import { isValidEmail } from "src/utils/email/is.valide.email";
 import { BadRequestException } from "@nestjs/common";
+import { isDisposableEmail } from "src/utils/email/is.disposable.email";
 
 export async function signinUser (
   dto: signin_user_dto,
@@ -19,6 +20,11 @@ export async function signinUser (
   
   if (!isValidEmail(email)) { 
     throw new BadRequestException('Invalid email address')
+  }
+
+  const isDisposable = await isDisposableEmail(email);
+  if (isDisposable) {
+    throw new BadRequestException('Use of temporary emails is not permitted');
   }
 
   const foundUser = await usersRepository.findUserByEmail(email);
