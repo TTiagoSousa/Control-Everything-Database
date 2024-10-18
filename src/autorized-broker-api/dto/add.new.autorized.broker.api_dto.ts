@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { IsEnum, IsNotEmpty } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { PlatformType } from '@prisma/client';
+import { CredentialRequirement, PlatformType } from '@prisma/client';
 
 export class addNewAutorizedBroker_dto {
   @ApiProperty()
@@ -20,4 +20,9 @@ export class addNewAutorizedBroker_dto {
   @ApiProperty()
   @IsNotEmpty()
   logo: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsEnum(CredentialRequirement)
+  credentialRequirement: CredentialRequirement
 }

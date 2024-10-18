@@ -17,4 +17,10 @@ export class PrismaAuthorizedBrokerRepository implements AuthorizedBrokerReposit
       where: { name },
     });
   }
+
+  async findById(id: string) {
+    return await prisma.authorizedBroker.findUnique({
+      where: { id },
+    });
+  }
 }

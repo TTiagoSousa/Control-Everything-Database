@@ -10,7 +10,7 @@ export async function addNewBroker(
 
   const authorizedBrokerRepository = new PrismaAuthorizedBrokerRepository();
 
-  const { name, logo, website, type } = dto
+  const { name, logo, website, type, credentialRequirement } = dto
 
   const existingBroker = await authorizedBrokerRepository.findByName(name);
   if (existingBroker) {
@@ -22,6 +22,7 @@ export async function addNewBroker(
     name: name,
     website: website,
     type: type as PlatformType,
+    credentialRequirement,
   })
 
   return creationResult
