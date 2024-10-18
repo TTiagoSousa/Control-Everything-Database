@@ -42,7 +42,7 @@ export async function signinUser (
     throw new BadRequestException('Something is wrong');
   }
 
-  if (!foundUser.isActive && foundUser) {
+  if (!foundUser.emailVerified && foundUser) {
 
     throw new BadRequestException('The account is not active');
   }
