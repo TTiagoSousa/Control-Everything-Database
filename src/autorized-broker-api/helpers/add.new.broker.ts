@@ -1,7 +1,8 @@
 import { PlatformType } from "@prisma/client";
 import { PrismaAuthorizedBrokerRepository } from "../repositories/prisma/prisma-autorized-broker-api-repisitory";
 import { addNewAutorizedBroker_dto } from "../dto/add.new.autorized.broker.api_dto";
-import { BadRequestException } from "@nestjs/common";
+import { BadGatewayException, BadRequestException } from "@nestjs/common";
+import { containsOnlyLettersAndNumbers } from "src/utils/text/contains.only.letters.and.numbers";
 
 export async function addNewBroker(
   userID: String,
@@ -11,6 +12,10 @@ export async function addNewBroker(
   const authorizedBrokerRepository = new PrismaAuthorizedBrokerRepository();
 
   const { name, logo, website, type, credentialRequirement } = dto
+
+  if(!containsOnlyLettersAndNumbers(name)) {
+    throw new BadGatewayException('Invalid platform')
+  }
 
   const existingBroker = await authorizedBrokerRepository.findByName(name);
   if (existingBroker) {
