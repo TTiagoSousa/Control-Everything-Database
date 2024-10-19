@@ -13,9 +13,10 @@ import { BrokersModule } from './brokers/brokers.module';
 import { SavingsTransitionsModule } from './savings-transitions/savings-transitions.module';
 import { PlatformsModule } from './platforms/platforms.module';
 import { UserApisModule } from './user-apis/user-apis.module';
+import { CryptoTransitionsModule } from './crypto-transitions/crypto-transitions.module';
 
 @Module({
-  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBrokerApiModule, BrokersModule, SavingsTransitionsModule, PlatformsModule, UserApisModule],
+  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBrokerApiModule, BrokersModule, SavingsTransitionsModule, PlatformsModule, UserApisModule, CryptoTransitionsModule],
   controllers: [AppController],
   providers: [AppService],
 })
