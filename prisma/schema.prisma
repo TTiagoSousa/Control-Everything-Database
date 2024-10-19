@@ -21,6 +21,7 @@ model User {
   passwordResetToken                  PasswordResetToken[]
   savingTransitions                   SavingsTransitions[]    @relation("createdByUser")
   apiKeys                             UserApiKey[]
+  cryptoTransitions                   CryptoTransition[]   @relation("createdByUserCrypto")
 }
 
 enum UserRole {
@@ -31,29 +32,29 @@ enum UserRole {
 }
 
 model Currency {
-  id                  String   @id @default(uuid())
-  name                String
-  short_code          String   @unique
-  code                String
-  precision           Int
-  symbol              String
-  symbol_first        Boolean
-  decimal_mark        String
-  thousands_separator String
-  rate                Float
-  createdAt           DateTime @default(now())    // Para rastrear quando a moeda foi adicionada
-  updatedAt           DateTime @updatedAt
-  savingsTransitions    SavingsTransitions[]
+  id                                  String   @id @default(uuid())
+  name                                String
+  short_code                          String   @unique
+  code                                String
+  precision                           Int
+  symbol                              String
+  symbol_first                        Boolean
+  decimal_mark                        String
+  thousands_separator                 String
+  rate                                Float
+  createdAt                           DateTime @default(now())    // Para rastrear quando a moeda foi adicionada
+  updatedAt                           DateTime @updatedAt
+  savingsTransitions                  SavingsTransitions[]
 }
 
 model Employee {
-  id                String                  @id @unique @default(uuid())
-  isActive          Boolean                 @default(false)
-  createdAt         DateTime                @default(now())
-  email             String                  @unique
-  hashedPassword    String
-  employeeNumber    Int                     @unique
-  jobTitle          EmployeeRole            @default(NOT_ASSIGNED)
+  id                                  String                  @id @unique @default(uuid())
+  isActive                            Boolean                 @default(false)
+  createdAt                           DateTime                @default(now())
+  email                               String                  @unique
+  hashedPassword                      String
+  employeeNumber                      Int                     @unique
+  jobTitle                            EmployeeRole            @default(NOT_ASSIGNED)
 }
 
 enum EmployeeRole {
@@ -64,48 +65,48 @@ enum EmployeeRole {
 }
 
 model PasswordResetToken {
-  id            String   @id @default(uuid())
-  userId        String
-  user          User     @relation(fields: [userId], references: [id])
-  token         String   @unique
-  expiresAt     DateTime
-  createdAt     DateTime @default(now())
+  id                                  String   @id @default(uuid())
+  userId                              String
+  user                                User     @relation(fields: [userId], references: [id])
+  token                               String   @unique
+  expiresAt                           DateTime
+  createdAt                           DateTime @default(now())
 }
 
 model AuthorizedBroker {
-  id            String   @id @default(uuid())
-  name          String   @unique   
-  logo          String
-  website       String                    
-  isActive      Boolean  @default(true)  
-  createdAt     DateTime @default(now()) 
-  type          PlatformType
-  apiKeys       UserApiKey[]
-  features      BrokerFeature[]  @relation("BrokerFeatures")
-  credentialRequirement   CredentialRequirement
+  id                                  String   @id @default(uuid())
+  name                                String   @unique   
+  logo                                String
+  website                             String                    
+  isActive                            Boolean  @default(true)  
+  createdAt                           DateTime @default(now()) 
+  type                                PlatformType
+  apiKeys                             UserApiKey[]
+  features                            BrokerFeature[]  @relation("BrokerFeatures")
+  credentialRequirement               CredentialRequirement
 }
 
 model BrokerFeature {
-  id                      String           @id @default(uuid())
-  name                    String
-  description             String?
-  authorizedBroker        AuthorizedBroker @relation("BrokerFeatures", fields: [authorizedBrokerId], references: [id])
-  authorizedBrokerId      String
+  id                                  String           @id @default(uuid())
+  name                                String
+  description                         String?
+  authorizedBroker                    AuthorizedBroker @relation("BrokerFeatures", fields: [authorizedBrokerId], references: [id])
+  authorizedBrokerId                  String
 }
 
 model SavingsTransitions {
-  id                    String          @id @default(uuid())
-  transitionType        TransitionType
-  platformID             String
-  platform              Platform        @relation(fields: [platformID], references: [id])
-  amount                Float
-  currencyTypeID        String
-  isActive              Boolean         @default(true)
-  date                  DateTime        @default(now())
-  createdBy             User            @relation("createdByUser", fields: [createdById], references: [id])
-  createdById           String
-  currency              Currency        @relation(fields: [currencyTypeID], references: [id])
-  description           String?
+  id                                  String          @id @default(uuid())
+  transitionType                      TransitionType
+  platformID                          String
+  platform                            Platform        @relation(fields: [platformID], references: [id])
+  amount                              Float
+  currencyTypeID                      String
+  isActive                            Boolean         @default(true)
+  date                                DateTime        @default(now())
+  createdBy                           User            @relation("createdByUser", fields: [createdById], references: [id])
+  createdById                         String
+  currency                            Currency        @relation(fields: [currencyTypeID], references: [id])
+  description                         String?
 }
 
 enum TransitionType {
@@ -114,15 +115,16 @@ enum TransitionType {
 }
 
 model Platform {
-  id                  String      @id @default(uuid())
-  name                String
-  logo                String
-  type                PlatformType
-  website             String           @unique
-  createdAt           DateTime        @default(now())
-  updatedAt           DateTime        @updatedAt
-  isActive            Boolean  @default(true)
-  savingTransition    SavingsTransitions[]
+  id                                  String      @id @default(uuid())
+  name                                String
+  logo                                String
+  type                                PlatformType
+  website                             String           @unique
+  createdAt                           DateTime        @default(now())
+  updatedAt                           DateTime        @updatedAt
+  isActive                            Boolean  @default(true)
+  savingTransition                    SavingsTransitions[]
+  cryptoTransitions                   CryptoTransition[]
 }
 
 enum PlatformType {
@@ -133,17 +135,40 @@ enum PlatformType {
 }
 
 model UserApiKey {
-  id                            String            @id @default(uuid())
-  hashKey                       String            @unique
-  hashSecretKey                 String?           @unique  // Agora opcional
-  createdAt                     DateTime          @default(now())
-  user                          User              @relation(fields: [userId], references: [id])
-  userId                        String
-  authorizedBroker              AuthorizedBroker  @relation(fields: [authorizedBrokerId], references: [id])
-  authorizedBrokerId            String
+  id                                  String            @id @default(uuid())
+  hashKey                             String            @unique
+  hashSecretKey                       String?           @unique  // Agora opcional
+  createdAt                           DateTime          @default(now())
+  user                                User              @relation(fields: [userId], references: [id])
+  userId                              String
+  authorizedBroker                    AuthorizedBroker  @relation(fields: [authorizedBrokerId], references: [id])
+  authorizedBrokerId                  String
 }
 
 enum CredentialRequirement {
   KEY_ONLY
   KEY_AND_SECRET
+}
+
+model CryptoTransition {
+  id                                  String         @id @default(uuid())
+  platformID                          String
+  platform                            Platform       @relation(fields: [platformID], references: [id])
+  orderType                           OrderType
+  date                                DateTime       @default(now())
+  purchasePrice                       Float
+  quantityPurchased                   Float
+  totalSpendUSD                       Float
+  feesCrypto                          Float
+  feesUSD                             Float
+  createdById                         String
+  createdBy                           User           @relation("createdByUserCrypto", fields: [createdById], references: [id])
+  cryptoId                            String
+  isActive                            Boolean        @default(true)
+}
+
+enum OrderType {
+  BUY
+  SELL
+  DROP
 }
