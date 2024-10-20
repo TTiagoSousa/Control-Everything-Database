@@ -15,9 +15,10 @@ import { PlatformsModule } from './platforms/platforms.module';
 import { UserApisModule } from './user-apis/user-apis.module';
 import { CryptoTransitionsModule } from './crypto-transitions/crypto-transitions.module';
 import { CryptoAnalysisModule } from './crypto-analysis/crypto-analysis.module';
+import { HeritageModule } from './heritage/heritage.module';
 
 @Module({
-  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBrokerApiModule, BrokersModule, SavingsTransitionsModule, PlatformsModule, UserApisModule, CryptoTransitionsModule, CryptoAnalysisModule],
+  imports: [UserModule, AuthUserModule, EmailModule, CurrenciesModule, AuthEmployeeModule, EmployeeModule, PasswordResetModule, AutorizedBrokerApiModule, BrokersModule, SavingsTransitionsModule, PlatformsModule, UserApisModule, CryptoTransitionsModule, CryptoAnalysisModule, HeritageModule],
   controllers: [AppController],
   providers: [AppService],
 })
