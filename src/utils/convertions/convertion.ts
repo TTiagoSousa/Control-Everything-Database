@@ -1,4 +1,5 @@
 import { BadRequestException } from "@nestjs/common";
+import { getSinglePriceCrypto } from "src/crypto-analysis/helpers/get.single.price";
 import { PrismaCurrencyRepository } from "src/currencies/repository/prisma/prisma-currency-repisitory"; 
 import { roundToFixed } from "src/utils/numbers/round.to.fixed";
 
@@ -23,18 +24,18 @@ export async function convertTotalToCurrency(
   const { baseCurrency } = options;
   
   if (targetConversion in cryptoSymbols) {
-    // const cryptoSymbol = cryptoSymbols[targetConversion];
+    const cryptoSymbol = cryptoSymbols[targetConversion];
 
-    // const cryptoPriceUSD = await getSinglePriceCrypto(targetConversion)
-    // const baseCurrencyInfo = await CurrencyRepository.findByID(baseCurrency);
+    const cryptoPriceUSD = await getSinglePriceCrypto(targetConversion)
+    const baseCurrencyInfo = await CurrencyRepository.findByID(baseCurrency);
 
-    // const targetRate = baseCurrencyInfo.rate;
-    // const totalInBaseCurrency = total / targetRate;
-    // const totalConverted = totalInBaseCurrency / cryptoPriceUSD;
+    const targetRate = baseCurrencyInfo.rate;
+    const totalInBaseCurrency = total / targetRate;
+    const totalConverted = totalInBaseCurrency / cryptoPriceUSD;
 
-    // const roundedResult = roundToFixed(totalConverted);
+    const roundedResult = roundToFixed(totalConverted);
 
-    // return { value: roundedResult, targetSymbol: cryptoSymbol };
+    return { value: roundedResult, targetSymbol: cryptoSymbol };
 
   } else{
 
