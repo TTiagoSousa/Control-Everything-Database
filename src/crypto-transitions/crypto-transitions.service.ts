@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { createCryptoTransition } from './helpers/create.crypto.transition';
 import { createCryptoTransition_dto } from './dto/create.crypto.transition.dto';
 import { getCryptoPortefolio } from './helpers/get.crypto.portfolio';
-import { getTotalCurrentInvestment } from './helpers/get.total.current.investment.crypto';
+import { getTotalConvertedCrypto } from './helpers/get.total.converted.crypto';
 
 @Injectable()
 export class CryptoTransitionsService {
@@ -18,8 +18,8 @@ export class CryptoTransitionsService {
     return result
   }
   
-  async getTotalCurrentInvestment(userId: string, targetConversion: string){
-    const result = await getTotalCurrentInvestment(userId, targetConversion);
+  async getTotalConvertedCrypto(userId: string, targetConversion: string){
+    const result = await getTotalConvertedCrypto(userId, targetConversion);
     
     return result
   }

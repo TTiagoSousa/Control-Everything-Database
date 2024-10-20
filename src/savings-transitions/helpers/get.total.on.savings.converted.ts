@@ -17,11 +17,11 @@ export async function getTotalOnSavingsTransitionsConverted(
     for (const item of platform.currencies) {
       const { total, currencyTypeID } = item;
       const conversionResult = await convertTotalToCurrency(total, targetConversion, { baseCurrency: currencyTypeID });
-      totalConverted += parseFloat(conversionResult.value); // Somar o valor convertido
+      totalConverted += parseFloat(roundToFixed(parseFloat(conversionResult.value))); // Acumular o valor convertido
       targetSymbol = conversionResult.targetSymbol; // Atualizar o símbolo de destino
     }
   }
 
-  const roundedResult = roundToFixed(totalConverted);
-  return { totalConverted: roundedResult, targetSymbol };
+  // Não é necessário arredondar novamente, pois já foi feito dentro do loop
+  return { totalConverted, targetSymbol };
 }

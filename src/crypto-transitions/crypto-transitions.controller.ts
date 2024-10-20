@@ -23,9 +23,9 @@ export class CryptoTransitionsController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':userId/get-total-converted/:targetConvertion')
-  async getTotalCurrentInvestment(    
+  async getTotalConvertedCrypto(    
     @Param('userId') userId: string,
     @Param('targetConvertion') targetConvertion: string,) {
-    return this.cryptoTransitionsService.getTotalCurrentInvestment(userId, targetConvertion);
+    return this.cryptoTransitionsService.getTotalConvertedCrypto(userId, targetConvertion);
   }
 }
