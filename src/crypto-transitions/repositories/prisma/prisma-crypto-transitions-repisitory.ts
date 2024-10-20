@@ -21,4 +21,15 @@ export class PrismaCryptoTransitionsRepository implements CryptoTransitionReposi
     });
     return count;
   }
+
+  async findMany(userId: string): Promise<CryptoTransition[]> {
+    const totalByCryptoType = await prisma.cryptoTransition.findMany({
+      where: {
+        createdById: userId,
+        isActive: true,
+      },
+    })
+
+    return totalByCryptoType
+  }
 }

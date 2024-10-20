@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { CryptoTransitionsService } from './crypto-transitions.service';
 import { JwtAuthGuard } from 'src/auth-user/jwt.guard';
 import { Request } from 'express';
@@ -15,4 +15,9 @@ export class CryptoTransitionsController {
     return this.cryptoTransitionsService.createCryptoTransition(dto, userId);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Get(':userId/get-crypto-portefolio')
+  async getCryptoPortefolio(@Param('userId') userId: string) {
+    return this.cryptoTransitionsService.getCryptoPortefolio(userId);
+  }
 }

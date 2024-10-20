@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createCryptoTransition } from './helpers/create.crypto.transition';
 import { createCryptoTransition_dto } from './dto/create.crypto.transition.dto';
+import { getCryptoPortefolio } from './helpers/get.crypto.portfolio';
 
 @Injectable()
 export class CryptoTransitionsService {
@@ -10,4 +11,9 @@ export class CryptoTransitionsService {
     return result;
   }
 
+  async getCryptoPortefolio(userId: string){
+    const result = await getCryptoPortefolio(userId);
+    
+    return result
+  }
 }
