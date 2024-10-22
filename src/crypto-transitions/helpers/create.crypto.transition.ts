@@ -17,7 +17,7 @@ export async function createCryptoTransition (
   const { cryptoId, feesUSD, feesCrypto, totalSpendUSD, quantityPurchased, purchasePrice, date, platformID, orderType } = dto;
 
   if(!containsOnlyLettersNumbersAndHyphens(cryptoId)) {
-    throw new BadGatewayException('Invalid platform')
+    throw new BadGatewayException('Invalid crypto')
   }
 
   const cryptoDetailsResponse = await getCryptoDetails(cryptoId);
