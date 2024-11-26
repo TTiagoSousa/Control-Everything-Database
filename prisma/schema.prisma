@@ -26,3 +26,18 @@ enum UserRole {
   tier2
   tier3
 }
+
+model Currency {
+  id                                  String   @id @default(uuid())
+  name                                String
+  short_code                          String   @unique
+  code                                String
+  precision                           Int
+  symbol                              String
+  symbol_first                        Boolean
+  decimal_mark                        String
+  thousands_separator                 String
+  rate                                Float
+  createdAt                           DateTime @default(now())
+  updatedAt                           DateTime @updatedAt
+}
