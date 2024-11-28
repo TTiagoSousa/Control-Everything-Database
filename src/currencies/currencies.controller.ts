@@ -24,4 +24,17 @@ export class CurrenciesController {
     const uploadupdatedCurrencies = await this.currenciesService.uploadCurrenciesToDatabase();
     return { uploadupdatedCurrencies };
   }
+
+  @Post('update-historical-rate/:currencyID/:date')
+  async updateHistoricalRateIfNeeded(
+    @Param('currencyID') currencyID:string,
+    @Param('date') date: string) {
+
+    try {
+      const currencyRate = await this.currenciesService.updateHistoricalRateIfNeeded(currencyID, date);
+      return currencyRate;
+    } catch (error) {
+
+    }
+  }
 }
