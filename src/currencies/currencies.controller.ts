@@ -25,13 +25,13 @@ export class CurrenciesController {
     return { uploadupdatedCurrencies };
   }
 
-  @Post('update-historical-rate/:currencyID/:date')
-  async updateHistoricalRateIfNeeded(
+  @Post('retrieve-and-update-rate-if-needed/:currencyID/:date')
+  async retrieveAndUpdateRateIfNeeded(
     @Param('currencyID') currencyID:string,
     @Param('date') date: string) {
 
     try {
-      const currencyRate = await this.currenciesService.updateHistoricalRateIfNeeded(currencyID, date);
+      const currencyRate = await this.currenciesService.retrieveAndUpdateRateIfNeeded(currencyID, date);
       return currencyRate;
     } catch (error) {
 

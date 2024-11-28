@@ -26,3 +26,11 @@ export async function getCurrencyRateByDate(baseCurrency: string, targetCurrency
     throw error;
   }
 }
+
+// return
+// {
+//   "date": "2022-12-23",
+//   "rate": 1.0617729,
+//   "base": "EUR",
+//   "currency": "USD"
+// }

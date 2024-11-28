@@ -1,8 +1,8 @@
 import { BadGatewayException } from "@nestjs/common";
 import { PrismaCurrencyRepository } from "../repository/prisma/prisma-currency-repisitory";
-import { getCurrencyRateByDate } from "./get.currencies.rate.by.date";
+import { getCurrencyRateByDate } from "./api/get.currencies.rate.by.date";
 
-export async function updateHistoricalRateIfNeeded (
+export async function retrieveAndUpdateRateIfNeeded (
   currencyID: string,
   date: string
 ){
@@ -19,8 +19,9 @@ export async function updateHistoricalRateIfNeeded (
 
   // Checks if there is already a rate for the specified date. If so, logs this information and terminates execution.
   if (historicalRates[date]) {
-    console.log(`Rate for ${currency.code} on ${date} already exists.`);
-    return;
+    // console.log(`Rate for ${currency.short_code} on ${date} already exists.`);
+
+    return historicalRates[date];
   }
 
   // Attempts to fetch the exchange rate for the provided date.
@@ -36,9 +37,11 @@ export async function updateHistoricalRateIfNeeded (
     historicalRates[date] = rateData.rate;
     await CurrencyRepository.updateCurrencyHistoricalRates(currencyID, historicalRates);
 
-    console.log(`Added rate for ${currency.code} to ${rateData.currency} on ${date}: ${rateData.rate}`);
+    return rateData.rate;
+
+    // console.log(`Added rate for ${currency.code} to ${rateData.currency} on ${date}: ${rateData.rate}`);
   } catch (error) {
-    console.error(`Error fetching rate for ${currency.code} to USD on ${date}:`, error);
+    // console.error(`Error fetching rate for ${currency.code} to USD on ${date}:`, error);
     throw new BadGatewayException(`Failed to fetch rate: ${error.message}`);
   }
 }
