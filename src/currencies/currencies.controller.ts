@@ -37,4 +37,16 @@ export class CurrenciesController {
 
     }
   }
+
+  @Get('get-historical-rate/:currencyID')
+  async getCurrencyRatesByID(
+    @Param('currencyID') currencyID:string,) {
+
+    try {
+      const currencyRate = await this.currenciesService.getCurrencyRatesByID(currencyID);
+      return currencyRate;
+    } catch (error) {
+
+    }
+  }
 }

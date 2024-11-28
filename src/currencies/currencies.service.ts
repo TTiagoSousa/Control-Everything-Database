@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { getCurrencyRateByDate } from './helpers/get.currencies.rate.by.date';
 import { uploadCurrenciesToDatabase } from './helpers/upload.currencies.to.database';
 import { updateHistoricalRateIfNeeded } from './helpers/update.historical.rate.if.needed';
+import { getCurrencyRatesByID } from './helpers/get.currencies.rate.by.id';
 
 @Injectable()
 export class CurrenciesService {
@@ -18,6 +19,11 @@ export class CurrenciesService {
 
   async updateHistoricalRateIfNeeded(currencyID: string, date: string) {
     const result = await updateHistoricalRateIfNeeded(currencyID, date);
+    return result;
+  }
+
+  async getCurrencyRatesByID(currencyID: string) {
+    const result = await getCurrencyRatesByID(currencyID);
     return result;
   }
 }
