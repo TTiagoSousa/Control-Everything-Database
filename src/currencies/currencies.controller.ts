@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { CurrenciesService } from './currencies.service';
 
 @Controller('currencies')
@@ -17,5 +17,11 @@ export class CurrenciesController {
     } catch (error) {
 
     }
+  }
+
+  @Post('upload-currencies-to-database')
+  async createCurrency() {
+    const uploadupdatedCurrencies = await this.currenciesService.uploadCurrenciesToDatabase();
+    return { uploadupdatedCurrencies };
   }
 }
