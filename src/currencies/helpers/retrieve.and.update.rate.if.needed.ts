@@ -1,47 +1,47 @@
-import { BadGatewayException } from "@nestjs/common";
-import { PrismaCurrencyRepository } from "../repository/prisma/prisma-currency-repisitory";
-import { getCurrencyRateByDate } from "./api/get.currencies.rate.by.date";
+// import { BadGatewayException } from "@nestjs/common";
+// import { PrismaCurrencyRepository } from "../repository/prisma/prisma-currency-repisitory";
+// import { getCurrencyRateByDate } from "./api/get.currencies.rate.by.date";
 
-export async function retrieveAndUpdateRateIfNeeded (
-  currencyID: string,
-  date: string
-){
+// export async function retrieveAndUpdateRateIfNeeded (
+//   currencyID: string,
+//   date: string
+// ){
 
-  const CurrencyRepository = new PrismaCurrencyRepository();
+//   const CurrencyRepository = new PrismaCurrencyRepository();
 
-  const currency = await CurrencyRepository.findByID(currencyID);
-  if (!currency) {
-    throw new BadGatewayException('Invalid currency ID provided.');
-  }
+//   const currency = await CurrencyRepository.findByID(currencyID);
+//   if (!currency) {
+//     throw new BadGatewayException('Invalid currency ID provided.');
+//   }
 
-  // Retrieves the historicalRates object from the currency, mapping dates to exchange rates. If it doesn't exist, uses an empty object.
-  const historicalRates = currency.historicalRates as { [key: string]: number } || {};
+//   // Retrieves the historicalRates object from the currency, mapping dates to exchange rates. If it doesn't exist, uses an empty object.
+//   const historicalRates = currency.historicalRates as { [key: string]: number } || {};
 
-  // Checks if there is already a rate for the specified date. If so, logs this information and terminates execution.
-  if (historicalRates[date]) {
-    // console.log(`Rate for ${currency.short_code} on ${date} already exists.`);
+//   // Checks if there is already a rate for the specified date. If so, logs this information and terminates execution.
+//   if (historicalRates[date]) {
+//     // console.log(`Rate for ${currency.short_code} on ${date} already exists.`);
 
-    return historicalRates[date];
-  }
+//     return historicalRates[date];
+//   }
 
-  // Attempts to fetch the exchange rate for the provided date.
-  try {
+//   // Attempts to fetch the exchange rate for the provided date.
+//   try {
 
-    const baseCurrency = 'USD'; // Using the currency's code as the base
-    const targetCurrency = currency.short_code; // Assuming you want to get the rate against USD
+//     const baseCurrency = 'USD'; // Using the currency's code as the base
+//     const targetCurrency = currency.short_code; // Assuming you want to get the rate against USD
 
-    // Calling getCurrencyRateByDate to obtain the exchange rate between the base and target currency on the specified date.
-    const rateData = await getCurrencyRateByDate(baseCurrency, targetCurrency, date);
+//     // Calling getCurrencyRateByDate to obtain the exchange rate between the base and target currency on the specified date.
+//     const rateData = await getCurrencyRateByDate(baseCurrency, targetCurrency, date);
 
-    // Updates the historical rates with the new rate obtained.
-    historicalRates[date] = rateData.rate;
-    await CurrencyRepository.updateCurrencyHistoricalRates(currencyID, historicalRates);
+//     // Updates the historical rates with the new rate obtained.
+//     historicalRates[date] = rateData.rate;
+//     await CurrencyRepository.updateCurrencyHistoricalRates(currencyID, historicalRates);
 
-    return rateData.rate;
+//     return rateData.rate;
 
-    // console.log(`Added rate for ${currency.code} to ${rateData.currency} on ${date}: ${rateData.rate}`);
-  } catch (error) {
-    // console.error(`Error fetching rate for ${currency.code} to USD on ${date}:`, error);
-    throw new BadGatewayException(`Failed to fetch rate: ${error.message}`);
-  }
-}
+//     // console.log(`Added rate for ${currency.code} to ${rateData.currency} on ${date}: ${rateData.rate}`);
+//   } catch (error) {
+//     // console.error(`Error fetching rate for ${currency.code} to USD on ${date}:`, error);
+//     throw new BadGatewayException(`Failed to fetch rate: ${error.message}`);
+//   }
+// }

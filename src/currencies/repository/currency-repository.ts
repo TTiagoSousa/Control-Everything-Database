@@ -6,5 +6,4 @@ export interface CurrencyRepository {
   findAll(): Promise<Currency[]>;
   updateRate(short_code: string, rate: number): Promise<Currency>;
   findByShortCode_returnID(short_code: string): Promise<string | null>;
-  updateCurrencyHistoricalRates( currencyID: string, historicalRates: { [date: string]: number } ): Promise<Currency>;
 }

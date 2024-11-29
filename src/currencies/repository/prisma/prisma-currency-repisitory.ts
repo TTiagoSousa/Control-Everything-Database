@@ -55,12 +55,4 @@ export class PrismaCurrencyRepository implements CurrencyRepository{
     return currency ? currency.id : null;
   }
 
-  async updateCurrencyHistoricalRates(currencyID: string, historicalRates: { [date: string]: number }): Promise<Currency> {
-    const updatedCurrency = await prisma.currency.update({
-      where: { id: currencyID },
-      data: { historicalRates },
-    });
-
-    return updatedCurrency;
-  }
 }

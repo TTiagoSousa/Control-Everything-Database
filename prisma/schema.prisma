@@ -40,5 +40,16 @@ model Currency {
   rate                                Float
   createdAt                           DateTime @default(now())
   updatedAt                           DateTime @updatedAt
-  historicalRates                     Json?
+  exchangeRates                       CurrencyExchangeRate[]
+}
+
+model CurrencyExchangeRate {
+  id               String    @id @default(uuid())
+  currencyId       String
+  rate             Float
+  date             DateTime
+
+  currency         Currency  @relation(fields: [currencyId], references: [id])
+
+  @@unique([currencyId, date])
 }

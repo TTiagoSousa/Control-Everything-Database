@@ -25,28 +25,4 @@ export class CurrenciesController {
     return { uploadupdatedCurrencies };
   }
 
-  @Post('retrieve-and-update-rate-if-needed/:currencyID/:date')
-  async retrieveAndUpdateRateIfNeeded(
-    @Param('currencyID') currencyID:string,
-    @Param('date') date: string) {
-
-    try {
-      const currencyRate = await this.currenciesService.retrieveAndUpdateRateIfNeeded(currencyID, date);
-      return currencyRate;
-    } catch (error) {
-
-    }
-  }
-
-  @Get('get-historical-rate/:currencyID')
-  async getCurrencyRatesByID(
-    @Param('currencyID') currencyID:string,) {
-
-    try {
-      const currencyRate = await this.currenciesService.getCurrencyRatesByID(currencyID);
-      return currencyRate;
-    } catch (error) {
-
-    }
-  }
 }
