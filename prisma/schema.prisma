@@ -53,3 +53,20 @@ model CurrencyExchangeRate {
 
   @@unique([currencyId, date])
 }
+
+model Platform {
+  id                                  String          @id @default(uuid())
+  name                                String
+  logo                                String
+  type                                PlatformType
+  createdAt                           DateTime          @default(now())
+  updatedAt                           DateTime          @updatedAt
+  isActive                            Boolean          @default(true)
+}
+
+enum PlatformType {
+  Bank
+  Broker
+  Crypto_Exchange
+  Crypto_Wallet
+}
