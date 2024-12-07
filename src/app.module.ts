@@ -10,9 +10,10 @@ import { CurrenciesModule } from './currencies/currencies.module';
 import { CryptoTransitionsModule } from './crypto-transitions/crypto-transitions.module';
 import { CurrenciesExchangeRateModule } from './currencies-exchange-rate/currencies-exchange-rate.module';
 import { PlatformModule } from './platform/platform.module';
+import { AssetsModule } from './assets/assets.module';
 
 @Module({
-  imports: [AuthUserModule, UserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrenciesModule, CryptoTransitionsModule, CurrenciesExchangeRateModule, PlatformModule],
+  imports: [AuthUserModule, UserModule, EmailModule, AuthEmployeeModule, EmployeeModule, CurrenciesModule, CryptoTransitionsModule, CurrenciesExchangeRateModule, PlatformModule, AssetsModule],
   controllers: [AppController],
   providers: [AppService],
 })
