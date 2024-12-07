@@ -70,3 +70,23 @@ enum PlatformType {
   Crypto_Exchange
   Crypto_Wallet
 }
+
+model Asset {
+  id              String        @id @default(uuid())
+  apiId           String        // ID fornecido pela API externa
+  name            String
+  abbreviation    String
+  type            AssetType
+  image           String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+enum AssetType {
+  Stock
+  Etf
+  Bond
+  RealEstate
+  Commodity
+  Cryptocurrency
+}
