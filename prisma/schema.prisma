@@ -72,21 +72,22 @@ enum PlatformType {
 }
 
 model Asset {
-  id              String        @id @default(uuid())
-  apiId           String        // ID fornecido pela API externa
+  id              String     @id @default(uuid())
+  apiId           String
   name            String
   abbreviation    String
-  type            AssetType
+  assetTypeId     String
   image           String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  assetType       AssetType  @relation(fields: [assetTypeId], references: [id])
 }
 
-enum AssetType {
-  Stock
-  Etf
-  Bond
-  RealEstate
-  Commodity
-  Cryptocurrency
+model AssetType {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  assets    Asset[]
 }
